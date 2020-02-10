@@ -19,9 +19,23 @@ namespace Production
         public Postavschik()
         {
             InitializeComponent();
-            InitializeComponent();
             MySqlQueries = new MySqlQueries();
             MySqlOperations = new MySqlOperations(MySqlQueries);
+        }
+
+        private void Postavschik_Load(object sender, EventArgs e)
+        {
+            MySqlOperations.OpenConnection();
+        }
+
+        private void Postavschik_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            MySqlOperations.CloseConnection();
+        }
+
+        private void поискToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            MySqlOperations.Search(toolStripTextBox1, dataGridView1);
         }
 
         private void складыToolStripMenuItem_Click(object sender, EventArgs e)
@@ -42,14 +56,162 @@ namespace Production
             identify = "organizacii";
         }
 
-        private void Postavschik_Load(object sender, EventArgs e)
+        private void заявкиНаОтгрузкуToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            MySqlOperations.OpenConnection();
+            MySqlOperations.Select_DataGridView(MySqlQueries.Select_Zayavka, dataGridView1);
+            identify = "zayavka";
         }
 
-        private void Postavschik_FormClosed(object sender, FormClosedEventArgs e)
+        private void отгруженныеToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            MySqlOperations.CloseConnection();
+            MySqlOperations.Select_DataGridView(MySqlQueries.Select_Done_Zakaz, dataGridView1);
+            identify = "zakaz";
+        }
+
+        private void ожидающиеToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            MySqlOperations.Select_DataGridView(MySqlQueries.Select_Wait_Zakaz, dataGridView1);
+            identify = "zakaz";
+        }
+
+        private void всеToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            MySqlOperations.Select_DataGridView(MySqlQueries.Select_All_Zakaz, dataGridView1);
+            identify = "zakaz";
+        }
+
+        private void toolStripMenuItem3_Click(object sender, EventArgs e)
+        {
+            Insert_String();
+        }
+
+        private void toolStripMenuItem2_Click(object sender, EventArgs e)
+        {
+            Update_String();
+        }
+
+        private void toolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+            Delete_String();
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            Insert_String();
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            Update_String();
+        }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+            Delete_String();
+        }
+
+        private void Insert_String()
+        {
+            if (identify == "sklad")
+            {
+                Sklad sklad = new Sklad(MySqlQueries, MySqlOperations);
+                sklad.button3.Visible = false;
+                sklad.button1.Visible = true;
+                sklad.AcceptButton = sklad.button1;
+                sklad.ShowDialog();
+                MySqlOperations.Select_DataGridView(MySqlQueries.Select_Sklad, dataGridView1);
+            }
+            else if (identify == "product")
+            {
+                Product product = new Product(MySqlQueries, MySqlOperations);
+                product.button3.Visible = false;
+                product.button1.Visible = true;
+                product.AcceptButton = product.button1;
+                product.ShowDialog();
+                MySqlOperations.Select_DataGridView(MySqlQueries.Select_Product, dataGridView1);
+            }
+            else if (identify == "organizacii")
+            {
+                Organizacii organizacii = new Organizacii(MySqlQueries, MySqlOperations);
+                organizacii.button3.Visible = false;
+                organizacii.button1.Visible = true;
+                organizacii.AcceptButton = organizacii.button1;
+                organizacii.ShowDialog();
+                MySqlOperations.Select_DataGridView(MySqlQueries.Select_Organizacii, dataGridView1);
+            }
+        }
+
+        private void Update_String()
+        {
+            if (dataGridView1.SelectedRows.Count <= 1)
+            {
+                if (identify == "sklad")
+                {
+                    Sklad sklad = new Sklad(MySqlQueries, MySqlOperations, dataGridView1.SelectedRows[0].Cells[0].Value.ToString());
+                    sklad.textBox1.Text = dataGridView1.SelectedRows[0].Cells[1].Value.ToString();
+                    sklad.button1.Visible = false;
+                    sklad.button3.Visible = true;
+                    sklad.AcceptButton = sklad.button3;
+                    sklad.ShowDialog();
+                    MySqlOperations.Select_DataGridView(MySqlQueries.Select_Sklad, dataGridView1);
+                }
+                else if (identify == "product")
+                {
+                    Product product = new Product(MySqlQueries, MySqlOperations, dataGridView1.SelectedRows[0].Cells[0].Value.ToString());
+                    MySqlOperations.Search_In_ComboBox(dataGridView1.SelectedRows[0].Cells[3].Value.ToString(), product.comboBox1);
+                    product.textBox1.Text = dataGridView1.SelectedRows[0].Cells[1].Value.ToString();
+                    MySqlOperations.Search_In_ComboBox(dataGridView1.SelectedRows[0].Cells[2].Value.ToString(), product.comboBox2);
+                    product.button1.Visible = false;
+                    product.button3.Visible = true;
+                    product.AcceptButton = product.button1;
+                    product.ShowDialog();
+                    MySqlOperations.Select_DataGridView(MySqlQueries.Select_Product, dataGridView1);
+                    
+                }
+                else if (identify == "organizacii")
+                {
+                    Organizacii organizacii = new Organizacii(MySqlQueries, MySqlOperations, dataGridView1.SelectedRows[0].Cells[0].Value.ToString());
+                    organizacii.textBox1.Text = dataGridView1.SelectedRows[0].Cells[1].Value.ToString();
+                    organizacii.textBox2.Text = dataGridView1.SelectedRows[0].Cells[2].Value.ToString();
+                    organizacii.button1.Visible = false;
+                    organizacii.button3.Visible = true;
+                    organizacii.AcceptButton = organizacii.button1;
+                    organizacii.ShowDialog();
+                    MySqlOperations.Select_DataGridView(MySqlQueries.Select_Organizacii, dataGridView1);
+
+                }
+            }
+        }
+
+        private void Delete_String()
+        {
+            if (MessageBox.Show("Желаете удалить выбранную запись(-и)?", "Вопрос", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+            {
+                if (identify == "sklad")
+                {
+                    for (int i = 0; i < dataGridView1.SelectedRows.Count; i++)
+                    {
+                        MySqlOperations.Delete(MySqlQueries.Delete_Sklad, dataGridView1.SelectedRows[i].Cells[0].Value.ToString());
+                    }
+                    MySqlOperations.Select_DataGridView(MySqlQueries.Select_Sklad, dataGridView1);
+                }
+                else if (identify == "product")
+                {
+                    for (int i = 0; i < dataGridView1.SelectedRows.Count; i++)
+                    {
+                        MySqlOperations.Delete(MySqlQueries.Delete_Product, dataGridView1.SelectedRows[i].Cells[0].Value.ToString());
+                    }
+                    MySqlOperations.Select_DataGridView(MySqlQueries.Select_Product, dataGridView1);
+                }
+                else if (identify == "organizacii")
+                {
+                    for (int i = 0; i < dataGridView1.SelectedRows.Count; i++)
+                    {
+                        MySqlOperations.Delete(MySqlQueries.Delete_Organizacii, dataGridView1.SelectedRows[i].Cells[0].Value.ToString());
+                    }
+                    MySqlOperations.Select_DataGridView(MySqlQueries.Select_Organizacii, dataGridView1);
+                }
+            }
         }
     }
 }

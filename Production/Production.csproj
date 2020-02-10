@@ -59,17 +59,41 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="MySqlOperations.cs" />
+    <Compile Include="Organizacii.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Organizacii.Designer.cs">
+      <DependentUpon>Organizacii.cs</DependentUpon>
+    </Compile>
     <Compile Include="Postavschik.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Postavschik.Designer.cs">
       <DependentUpon>Postavschik.cs</DependentUpon>
     </Compile>
+    <Compile Include="Product.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Product.Designer.cs">
+      <DependentUpon>Product.cs</DependentUpon>
+    </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="MySqlQueries.cs" />
+    <Compile Include="Sklad.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Sklad.Designer.cs">
+      <DependentUpon>Sklad.cs</DependentUpon>
+    </Compile>
+    <EmbeddedResource Include="Organizacii.resx">
+      <DependentUpon>Organizacii.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Postavschik.resx">
       <DependentUpon>Postavschik.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Product.resx">
+      <DependentUpon>Product.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
@@ -80,6 +104,9 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="Sklad.resx">
+      <DependentUpon>Sklad.cs</DependentUpon>
+    </EmbeddedResource>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
