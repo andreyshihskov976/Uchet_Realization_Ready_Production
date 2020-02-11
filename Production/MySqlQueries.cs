@@ -25,16 +25,45 @@ FROM organizacii;";
         public string Select_Zayavka = $@"SELECT zayavka.ID_Zayavki AS 'Заявка, №', sklad.Name AS 'Отгрузка со склада', zayavka.Date AS 'Дата отгрузки'
 FROM zayavka INNER JOIN sklad ON zayavka.ID_Sklada = sklad.ID_Sklada;";
 
-        public string Select_All_Zakaz = $@"SELECT zakaz.ID_Zakaza AS 'Заказ, №', organizacii.Name AS 'Наименование организации заказчика', zakaz.Date AS 'Дата заказа'
-FROM zakaz INNER JOIN organizacii ON zakaz.ID_Organizacii = organizacii.ID_Organizacii;";
-
-        public string Select_Done_Zakaz = $@"SELECT zakaz.ID_Zakaza AS 'Заказ, №', organizacii.Name AS 'Наименование организации заказчика', zakaz.Date AS 'Дата заказа'
+        public string Select_All_Zakaz = $@"SELECT zakaz.ID_Zakaza AS 'Заказ, №', organizacii.Name AS 'Наименование организации заказчика', zakaz.Date AS 'Дата заказа', COUNT(sostav_zakaza.ID_Zakaza) AS 'Количество позиций', zakaz.Identify AS 'Состояние'
 FROM zakaz INNER JOIN organizacii ON zakaz.ID_Organizacii = organizacii.ID_Organizacii
-WHERE zakaz.Identify = 'Отгружен';";
+LEFT JOIN sostav_zakaza ON zakaz.ID_Zakaza = sostav_zakaza.ID_Zakaza
+GROUP BY zakaz.ID_Zakaza;";
 
-        public string Select_Wait_Zakaz = $@"SELECT zakaz.ID_Zakaza AS 'Заказ, №', organizacii.Name AS 'Наименование организации заказчика', zakaz.Date AS 'Дата заказа'
+        public string Select_Done_Zakaz = $@"SELECT zakaz.ID_Zakaza AS 'Заказ, №', organizacii.Name AS 'Наименование организации заказчика', zakaz.Date AS 'Дата заказа', COUNT(sostav_zakaza.ID_Zakaza) AS 'Количество позиций'
 FROM zakaz INNER JOIN organizacii ON zakaz.ID_Organizacii = organizacii.ID_Organizacii
-WHERE zakaz.Identify = 'Ожидает отгрузки';";
+LEFT JOIN sostav_zakaza ON zakaz.ID_Zakaza = sostav_zakaza.ID_Zakaza
+WHERE zakaz.Identify = 'Огружен'
+GROUP BY zakaz.ID_Zakaza;";
+
+        public string Select_Wait_Zakaz = $@"SELECT zakaz.ID_Zakaza AS 'Заказ, №', organizacii.Name AS 'Наименование организации заказчика', zakaz.Date AS 'Дата заказа', COUNT(sostav_zakaza.ID_Zakaza) AS 'Количество позиций'
+FROM zakaz INNER JOIN organizacii ON zakaz.ID_Organizacii = organizacii.ID_Organizacii
+LEFT JOIN sostav_zakaza ON zakaz.ID_Zakaza = sostav_zakaza.ID_Zakaza
+WHERE zakaz.Identify = 'Ожидает отгрузки'
+GROUP BY zakaz.ID_Zakaza;";
+
+        public string Select_All_Zakaz_2 = $@"SELECT zakaz.ID_Zakaza AS 'Заказ, №', zakaz.Date AS 'Дата заказа', COUNT(sostav_zakaza.ID_Zakaza) AS 'Количество позиций', zakaz.Identify AS 'Состояние'
+FROM zakaz INNER JOIN organizacii ON zakaz.ID_Organizacii = organizacii.ID_Organizacii
+LEFT JOIN sostav_zakaza ON zakaz.ID_Zakaza = sostav_zakaza.ID_Zakaza
+WHERE zakaz.ID_Organizacii = @ID
+GROUP BY zakaz.ID_Zakaza;";
+
+        public string Select_Done_Zakaz_2 = $@"SELECT zakaz.ID_Zakaza AS 'Заказ, №', zakaz.Date AS 'Дата заказа', COUNT(sostav_zakaza.ID_Zakaza) AS 'Количество позиций'
+FROM zakaz INNER JOIN organizacii ON zakaz.ID_Organizacii = organizacii.ID_Organizacii
+LEFT JOIN sostav_zakaza ON zakaz.ID_Zakaza = sostav_zakaza.ID_Zakaza
+WHERE zakaz.Identify = 'Огружен' AND zakaz.ID_Organizacii = @ID
+GROUP BY zakaz.ID_Zakaza;";
+
+        public string Select_Wait_Zakaz_2 = $@"SELECT zakaz.ID_Zakaza AS 'Заказ, №', zakaz.Date AS 'Дата заказа', COUNT(sostav_zakaza.ID_Zakaza) AS 'Количество позиций'
+FROM zakaz INNER JOIN organizacii ON zakaz.ID_Organizacii = organizacii.ID_Organizacii
+LEFT JOIN sostav_zakaza ON zakaz.ID_Zakaza = sostav_zakaza.ID_Zakaza
+WHERE zakaz.Identify = 'Ожидает отгрузки' AND zakaz.ID_Organizacii = @ID
+GROUP BY zakaz.ID_Zakaza;";
+
+        public string Select_Avtorizaciya = $@"SELECT EXISTS(SELECT * FROM login WHERE login.Login = @Value1 AND login.Parol = @Value2);";
+
+        public string Select_User_Form = $@"SELECT login.ID_Organizacii FROM login WHERE login.Login = @Value1 AND login.Parol = @Value2;";
+        
         //Select
 
 
@@ -46,6 +75,8 @@ WHERE zakaz.Identify = 'Ожидает отгрузки';";
         public string Insert_Product = $@"INSERT INTO product (ID_Sklada, Name, Ed_Izm) VALUES (@Value1, @Value2, @Value3);";
 
         public string Insert_Organizacii = $@"INSERT INTO organizacii (Name, Adress) VALUES (@Value1, @Value2);";
+
+        public string Insert_Zakaz = $@"INSERT INTO zakaz (ID_Organizacii, Date) VALUES (@ID, @Value1);";
 
         //Insert
 
@@ -59,6 +90,8 @@ WHERE zakaz.Identify = 'Ожидает отгрузки';";
 
         public string Update_Organizacii = $@"UPDATE organizacii SET Name = @Value1, Adress = @Value2 WHERE ID_Organizacii = @ID;";
 
+        public string Update_Zakaz = $@"UPDATE zakaz SET ID_Organizacii = @Value1, Date = @Value2 WHERE ID_Zakaza = @ID;";
+
         //Update
 
 
@@ -70,6 +103,8 @@ WHERE zakaz.Identify = 'Ожидает отгрузки';";
         public string Delete_Product = $@"DELETE FROM product WHERE ID_Product = @ID;";
 
         public string Delete_Organizacii = $@"DELETE FROM organizacii WHERE ID_Organizacii = @ID;";
+
+        public string Delete_Zakaz = $@"DELETE FROM zakaz WHERE ID_Zakaza = @ID;";
 
         //Delete
     }

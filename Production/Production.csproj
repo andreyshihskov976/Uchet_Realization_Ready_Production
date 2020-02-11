@@ -58,6 +58,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Login.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Login.Designer.cs">
+      <DependentUpon>Login.cs</DependentUpon>
+    </Compile>
     <Compile Include="MySqlOperations.cs" />
     <Compile Include="Organizacii.cs">
       <SubType>Form</SubType>
@@ -86,6 +92,21 @@
     <Compile Include="Sklad.Designer.cs">
       <DependentUpon>Sklad.cs</DependentUpon>
     </Compile>
+    <Compile Include="Zakaz.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Zakaz.Designer.cs">
+      <DependentUpon>Zakaz.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Zakazchik.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Zakazchik.Designer.cs">
+      <DependentUpon>Zakazchik.cs</DependentUpon>
+    </Compile>
+    <EmbeddedResource Include="Login.resx">
+      <DependentUpon>Login.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Organizacii.resx">
       <DependentUpon>Organizacii.cs</DependentUpon>
     </EmbeddedResource>
@@ -106,6 +127,12 @@
     </Compile>
     <EmbeddedResource Include="Sklad.resx">
       <DependentUpon>Sklad.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Zakaz.resx">
+      <DependentUpon>Zakaz.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Zakazchik.resx">
+      <DependentUpon>Zakazchik.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>

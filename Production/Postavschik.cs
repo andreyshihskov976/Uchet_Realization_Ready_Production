@@ -65,19 +65,19 @@ namespace Production
         private void отгруженныеToolStripMenuItem_Click(object sender, EventArgs e)
         {
             MySqlOperations.Select_DataGridView(MySqlQueries.Select_Done_Zakaz, dataGridView1);
-            identify = "zakaz";
+            identify = "done_zakaz";
         }
 
         private void ожидающиеToolStripMenuItem_Click(object sender, EventArgs e)
         {
             MySqlOperations.Select_DataGridView(MySqlQueries.Select_Wait_Zakaz, dataGridView1);
-            identify = "zakaz";
+            identify = "wait_zakaz";
         }
 
         private void всеToolStripMenuItem_Click(object sender, EventArgs e)
         {
             MySqlOperations.Select_DataGridView(MySqlQueries.Select_All_Zakaz, dataGridView1);
-            identify = "zakaz";
+            identify = "all_zakaz";
         }
 
         private void toolStripMenuItem3_Click(object sender, EventArgs e)
@@ -212,6 +212,16 @@ namespace Production
                     MySqlOperations.Select_DataGridView(MySqlQueries.Select_Organizacii, dataGridView1);
                 }
             }
+        }
+
+        private void оформитьЗаявкуНаОтгрузкуToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if ((identify == "wait_zakaz" || identify == "all_zakaz") && dataGridView1.SelectedRows.Count <= 1)
+            {
+
+            }
+            else
+                MessageBox.Show("Для оформления заявки необходимо открыть список заказов, ожидающих отгрузки, и выбрать заказ, на основании которого необхдимо оформить заявку.", "Информация", MessageBoxButtons.OK,MessageBoxIcon.Information);
         }
     }
 }

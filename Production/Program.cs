@@ -16,7 +16,16 @@ namespace Production
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new Postavschik());
+            Login login = new Login();
+            Application.Run(login);
+            if (login.DialogResult == DialogResult.No)
+            {
+                Application.Run(new Postavschik());
+            }
+            if (login.DialogResult == DialogResult.Yes)
+            {
+                Application.Run(new Zakazchik(login.ID));
+            }
         }
     }
 }
