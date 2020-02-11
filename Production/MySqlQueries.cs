@@ -34,8 +34,9 @@ WHERE product.Name = @Value1;";
         public string Select_Organizacii = $@"SELECT ID_Organizacii AS 'ID Заказчика', Name AS 'Наименование организации заказчика', Adress AS 'Адрес доставки'
 FROM organizacii;";
 
-        public string Select_Zayavka = $@"SELECT zayavka.ID_Zayavki AS 'Заявка, №', sklad.Name AS 'Отгрузка со склада', zayavka.Date AS 'Дата отгрузки'
-FROM zayavka INNER JOIN sklad ON zayavka.ID_Sklada = sklad.ID_Sklada;";
+        public string Select_Zayavka = $@"SELECT zayavka.ID_Zayavki AS 'Заявка, №', sklad.Name AS 'Отгрузка со склада', zayavka.Date AS 'Дата отгрузки', zayavka.ID_Zakaza AS 'На основании заказа, №'
+FROM zayavka INNER JOIN sklad ON zayavka.ID_Sklada = sklad.ID_Sklada
+INNER JOIN zakaz ON zayavka.ID_Zakaza = zakaz.ID_Zakaza;";
 
         public string Select_All_Zakaz = $@"SELECT zakaz.ID_Zakaza AS 'Заказ, №', organizacii.Name AS 'Наименование организации заказчика', zakaz.Date AS 'Дата заказа', COUNT(sostav_zakaza.ID_Zakaza) AS 'Количество позиций', zakaz.Identify AS 'Состояние'
 FROM zakaz INNER JOIN organizacii ON zakaz.ID_Organizacii = organizacii.ID_Organizacii
@@ -104,6 +105,12 @@ WHERE product.ID_Sklada = '2' AND sostav_zakaza.ID_Zakaza = @ID;";
 
         public string Insert_Sostav_Zakaza = $@"INSERT INTO sostav_zakaza (ID_Zakaza, ID_Product, Kolichestvo) VALUES (@ID, @Value1, @Value2);";
 
+        public string Insert_Zayavka_GP = $@"INSERT INTO zayavka (ID_Sklada, ID_Zakaza, Date) VALUES ('2', @ID, @Value1);";
+
+        public string Insert_Zayavka_CUP = $@"INSERT INTO zayavka (ID_Sklada, ID_Zakaza, Date) VALUES ('1', @ID, @Value1);";
+
+        public string Insert_Sostav_Zayavki = $@"INSERT INTO sostav_zayavki (ID_Zayavki, ID_Product, Kolichestvo) VALUES (@ID, @Value1, @Value2);";
+
         //Insert
 
 
@@ -117,6 +124,10 @@ WHERE product.ID_Sklada = '2' AND sostav_zakaza.ID_Zakaza = @ID;";
         public string Update_Organizacii = $@"UPDATE organizacii SET Name = @Value1, Adress = @Value2 WHERE ID_Organizacii = @ID;";
 
         public string Update_Zakaz = $@"UPDATE zakaz SET ID_Organizacii = @Value1, Date = @Value2 WHERE ID_Zakaza = @ID;";
+
+        public string Update_Identify_Zakaz = $@"UPDATE zakaz SET Identify = 'Отгружен' WHERE ID_Zakaza = 1;";
+
+        public string Update_Zayavka = $@"UPDATE zayavka SET Date = @Value1 WHERE ID_Zayavki = @ID;";
 
         //Update
 
@@ -133,6 +144,8 @@ WHERE product.ID_Sklada = '2' AND sostav_zakaza.ID_Zakaza = @ID;";
         public string Delete_Zakaz = $@"DELETE FROM zakaz WHERE ID_Zakaza = @ID;";
 
         public string Delete_Sostav_Zakaza = $@"DELETE FROM sostav_zakaza WHERE ID_Punkta = @ID;";
+
+        public string Delete_Zayavka = $@"DELETE FROM zayavka WHERE ID_Zayavki = @ID;";
 
         //Delete
     }

@@ -211,17 +211,47 @@ namespace Production
                     }
                     MySqlOperations.Select_DataGridView(MySqlQueries.Select_Organizacii, dataGridView1);
                 }
+                else if (identify == "zayavka")
+                {
+                    for (int i = 0; i < dataGridView1.SelectedRows.Count; i++)
+                    {
+                        MySqlOperations.Delete(MySqlQueries.Delete_Zayavka, dataGridView1.SelectedRows[i].Cells[0].Value.ToString());
+                    }
+                    MySqlOperations.Select_DataGridView(MySqlQueries.Select_Zayavka, dataGridView1);
+                }
             }
         }
 
         private void оформитьЗаявкуНаОтгрузкуToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            if ((identify == "wait_zakaz" || identify == "all_zakaz") && dataGridView1.SelectedRows.Count <= 1)
+            if (identify == "wait_zakaz" && dataGridView1.SelectedRows.Count <= 1)
             {
-
+                Zayavka zayavka = new Zayavka(MySqlQueries, MySqlOperations, dataGridView1.SelectedRows[0].Cells[0].Value.ToString());
+                MySqlOperations.Select_DataGridView(MySqlQueries.Select_Sostav_GP, zayavka.dataGridView1, dataGridView1.SelectedRows[0].Cells[0].Value.ToString());
+                MySqlOperations.Select_DataGridView(MySqlQueries.Select_Sostav_CUP, zayavka.dataGridView2, dataGridView1.SelectedRows[0].Cells[0].Value.ToString());
+                zayavka.button1.Visible = true;
+                zayavka.button6.Visible = false;
+                zayavka.AcceptButton = zayavka.button1;
+                zayavka.ShowDialog();
             }
             else
                 MessageBox.Show("Для оформления заявки необходимо открыть список заказов, ожидающих отгрузки, и выбрать заказ, на основании которого необхдимо оформить заявку.", "Информация", MessageBoxButtons.OK,MessageBoxIcon.Information);
+        }
+
+        private void оформитьToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (identify == "wait_zakaz" && dataGridView1.SelectedRows.Count <= 1)
+            {
+                Zayavka zayavka = new Zayavka(MySqlQueries, MySqlOperations, dataGridView1.SelectedRows[0].Cells[0].Value.ToString());
+                MySqlOperations.Select_DataGridView(MySqlQueries.Select_Sostav_GP, zayavka.dataGridView1, dataGridView1.SelectedRows[0].Cells[0].Value.ToString());
+                MySqlOperations.Select_DataGridView(MySqlQueries.Select_Sostav_CUP, zayavka.dataGridView2, dataGridView1.SelectedRows[0].Cells[0].Value.ToString());
+                zayavka.button1.Visible = true;
+                zayavka.button6.Visible = false;
+                zayavka.AcceptButton = zayavka.button1;
+                zayavka.ShowDialog();
+            }
+            else
+                MessageBox.Show("Для оформления заявки необходимо открыть список заказов, ожидающих отгрузки, и выбрать заказ, на основании которого необхдимо оформить заявку.", "Информация", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
     }
 }

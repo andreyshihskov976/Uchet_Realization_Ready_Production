@@ -32,8 +32,13 @@ namespace Production
 
         private void button1_Click(object sender, EventArgs e)
         {
-            MySqlOperations.Insert_Update(MySqlQueries.Insert_Product, null, MySqlOperations.Select_ID_From_ComboBox(MySqlQueries.Select_Sklad_ID, comboBox1.Text), textBox1.Text, comboBox2.Text);
-            this.Close();
+            if (textBox1.Text != "" && comboBox1.Text != "" && comboBox2.Text != "")
+            {
+                MySqlOperations.Insert_Update(MySqlQueries.Insert_Product, null, MySqlOperations.Select_ID_From_ComboBox(MySqlQueries.Select_Sklad_ID, comboBox1.Text), textBox1.Text, comboBox2.Text);
+                this.Close();
+            }
+            else
+                MessageBox.Show("Поля не заполнены.", "Добавление", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
 
         private void button2_Click(object sender, EventArgs e)
@@ -43,8 +48,13 @@ namespace Production
 
         private void button3_Click(object sender, EventArgs e)
         {
-            MySqlOperations.Insert_Update(MySqlQueries.Update_Product, ID, MySqlOperations.Select_ID_From_ComboBox(MySqlQueries.Select_Sklad_ID, comboBox1.Text), textBox1.Text, comboBox2.Text);
-            this.Close();
+            if (textBox1.Text != "" && comboBox1.Text != "" && comboBox2.Text != "")
+            {
+                MySqlOperations.Insert_Update(MySqlQueries.Update_Product, ID, MySqlOperations.Select_ID_From_ComboBox(MySqlQueries.Select_Sklad_ID, comboBox1.Text), textBox1.Text, comboBox2.Text);
+                this.Close();
+            }
+            else
+                MessageBox.Show("Поля не заполнены.", "Редактирование", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
     }
 }

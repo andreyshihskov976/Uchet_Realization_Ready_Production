@@ -55,6 +55,7 @@
             this.button4 = new System.Windows.Forms.Button();
             this.button1 = new System.Windows.Forms.Button();
             this.button3 = new System.Windows.Forms.Button();
+            this.оформитьToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.contextMenuStrip1.SuspendLayout();
             this.menuStrip1.SuspendLayout();
             this.groupBox1.SuspendLayout();
@@ -110,7 +111,7 @@
             // 
             this.оформитьЗаявкуНаОтгрузкуToolStripMenuItem.Name = "оформитьЗаявкуНаОтгрузкуToolStripMenuItem";
             this.оформитьЗаявкуНаОтгрузкуToolStripMenuItem.Size = new System.Drawing.Size(147, 22);
-            this.оформитьЗаявкуНаОтгрузкуToolStripMenuItem.Text = "Оформить";
+            this.оформитьЗаявкуНаОтгрузкуToolStripMenuItem.Text = "&Оформить";
             this.оформитьЗаявкуНаОтгрузкуToolStripMenuItem.Click += new System.EventHandler(this.оформитьЗаявкуНаОтгрузкуToolStripMenuItem_Click);
             // 
             // toolStripSeparator6
@@ -131,6 +132,7 @@
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.справочникиToolStripMenuItem,
             this.заявкиНаОтгрузкуToolStripMenuItem,
+            this.оформитьToolStripMenuItem,
             this.заказыToolStripMenuItem,
             this.toolStripTextBox1,
             this.поискToolStripMenuItem});
@@ -214,7 +216,7 @@
             // toolStripTextBox1
             // 
             this.toolStripTextBox1.Name = "toolStripTextBox1";
-            this.toolStripTextBox1.Size = new System.Drawing.Size(383, 23);
+            this.toolStripTextBox1.Size = new System.Drawing.Size(263, 23);
             // 
             // поискToolStripMenuItem
             // 
@@ -244,6 +246,7 @@
             this.dataGridView1.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCells;
             this.dataGridView1.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllCells;
             this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridView1.ContextMenuStrip = this.contextMenuStrip1;
             this.dataGridView1.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically;
             this.dataGridView1.Location = new System.Drawing.Point(0, 19);
             this.dataGridView1.Name = "dataGridView1";
@@ -294,6 +297,12 @@
             this.button3.Text = "Удалит&ь";
             this.button3.UseVisualStyleBackColor = true;
             this.button3.Click += new System.EventHandler(this.button3_Click);
+            // 
+            // оформитьToolStripMenuItem
+            // 
+            this.оформитьToolStripMenuItem.Name = "оформитьToolStripMenuItem";
+            this.оформитьToolStripMenuItem.Size = new System.Drawing.Size(116, 23);
+            this.оформитьToolStripMenuItem.Text = "Оформить заявку";
             // 
             // Postavschik
             // 
@@ -350,6 +359,7 @@
         private System.Windows.Forms.Button button4;
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.Button button3;
+        private System.Windows.Forms.ToolStripMenuItem оформитьToolStripMenuItem;
     }
 }
 

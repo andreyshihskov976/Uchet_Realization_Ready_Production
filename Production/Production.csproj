@@ -110,6 +110,12 @@
     <Compile Include="Zakazchik.Designer.cs">
       <DependentUpon>Zakazchik.cs</DependentUpon>
     </Compile>
+    <Compile Include="Zayavka.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Zayavka.Designer.cs">
+      <DependentUpon>Zayavka.cs</DependentUpon>
+    </Compile>
     <EmbeddedResource Include="Login.resx">
       <DependentUpon>Login.cs</DependentUpon>
     </EmbeddedResource>
@@ -142,6 +148,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Zakazchik.resx">
       <DependentUpon>Zakazchik.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Zayavka.resx">
+      <DependentUpon>Zayavka.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>

@@ -114,6 +114,8 @@ namespace Production
                 zakaz.ShowDialog();
                 MySqlOperations.Select_DataGridView(MySqlQueries.Select_All_Zakaz_2, dataGridView1, ID_Org);
             }
+            else
+                MessageBox.Show("Вставка записей в данноую таблицу невозможно.", "Добавление", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
 
         private void Update_String()
@@ -136,18 +138,25 @@ namespace Production
                 }
                 else if (identify == "all_zakaz")
                 {
-                    Zakaz zakaz = new Zakaz(MySqlQueries, MySqlOperations, ID_Org, dataGridView1.SelectedRows[0].Cells[0].Value.ToString());
-                    zakaz.dateTimePicker1.Value = DateTime.Parse(dataGridView1.SelectedRows[0].Cells[1].Value.ToString());
-                    zakaz.button1.Visible = false;
-                    zakaz.button6.Visible = true;
-                    zakaz.groupBox1.Visible = true;
-                    zakaz.groupBox2.Visible = true;
-                    zakaz.AcceptButton = zakaz.button6;
-                    MySqlOperations.Select_DataGridView(MySqlQueries.Select_Sostav_CUP, zakaz.dataGridView1, dataGridView1.SelectedRows[0].Cells[0].Value.ToString());
-                    MySqlOperations.Select_DataGridView(MySqlQueries.Select_Sostav_GP, zakaz.dataGridView2, dataGridView1.SelectedRows[0].Cells[0].Value.ToString());
-                    zakaz.ShowDialog();
-                    MySqlOperations.Select_DataGridView(MySqlQueries.Select_All_Zakaz_2, dataGridView1, ID_Org);
+                    if (dataGridView1.SelectedRows[0].Cells[3].Value.ToString() != "Отгружен")
+                    {
+                        Zakaz zakaz = new Zakaz(MySqlQueries, MySqlOperations, ID_Org, dataGridView1.SelectedRows[0].Cells[0].Value.ToString());
+                        zakaz.dateTimePicker1.Value = DateTime.Parse(dataGridView1.SelectedRows[0].Cells[1].Value.ToString());
+                        zakaz.button1.Visible = false;
+                        zakaz.button6.Visible = true;
+                        zakaz.groupBox1.Visible = true;
+                        zakaz.groupBox2.Visible = true;
+                        zakaz.AcceptButton = zakaz.button6;
+                        MySqlOperations.Select_DataGridView(MySqlQueries.Select_Sostav_CUP, zakaz.dataGridView1, dataGridView1.SelectedRows[0].Cells[0].Value.ToString());
+                        MySqlOperations.Select_DataGridView(MySqlQueries.Select_Sostav_GP, zakaz.dataGridView2, dataGridView1.SelectedRows[0].Cells[0].Value.ToString());
+                        zakaz.ShowDialog();
+                        MySqlOperations.Select_DataGridView(MySqlQueries.Select_All_Zakaz_2, dataGridView1, ID_Org);
+                    }
+                    else
+                        MessageBox.Show("Данный заказ уже отгружен со склада." + '\n' + "Редактирование невозможно.", "Редактирование", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
+                else
+                    MessageBox.Show("Редактирование записей данной таблицы невозможно.", "Редактирование", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
         }
 

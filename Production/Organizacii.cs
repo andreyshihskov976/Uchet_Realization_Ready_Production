@@ -31,8 +31,13 @@ namespace Production
 
         private void button1_Click(object sender, EventArgs e)
         {
-            MySqlOperations.Insert_Update(MySqlQueries.Insert_Organizacii, null, textBox1.Text, textBox2.Text);
-            this.Close();
+            if (textBox1.Text != "" && textBox2.Text != "")
+            {
+                MySqlOperations.Insert_Update(MySqlQueries.Insert_Organizacii, null, textBox1.Text, textBox2.Text);
+                this.Close();
+            }
+            else
+                MessageBox.Show("Поля не заполнены.", "Добавление", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
 
         private void button2_Click(object sender, EventArgs e)
@@ -42,8 +47,13 @@ namespace Production
 
         private void button3_Click(object sender, EventArgs e)
         {
-            MySqlOperations.Insert_Update(MySqlQueries.Update_Organizacii, ID, textBox1.Text, textBox2.Text);
-            this.Close();
+            if (textBox1.Text != "" && textBox2.Text != "")
+            {
+                MySqlOperations.Insert_Update(MySqlQueries.Update_Organizacii, ID, textBox1.Text, textBox2.Text);
+                this.Close();
+            }
+            else
+                MessageBox.Show("Поля не заполнены.", "Редактирование", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
     }
 }

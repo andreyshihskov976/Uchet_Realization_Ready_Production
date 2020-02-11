@@ -200,7 +200,6 @@ namespace Production
                 sqlCommand.Parameters.AddWithValue("Value8", Value8);
                 sqlCommand.Parameters.AddWithValue("ID", ID);
                 sqlCommand.ExecuteNonQuery();
-                MessageBox.Show("Операция выполнена успешно.", "Успех", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
             catch (Exception ex)
             {
