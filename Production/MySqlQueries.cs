@@ -19,6 +19,18 @@ namespace Production
         public string Select_Product = $@"SELECT product.ID_Product AS 'ID Продукции', product.Name AS 'Наименование продукции',product.Ed_Izm AS 'Единицы измерения', sklad.Name AS 'Хранится на складе'
 FROM product INNER JOIN sklad ON product.ID_Sklada = sklad.ID_Sklada;";
 
+        public string Select_Product_ComboBox_CUP = $@"SELECT product.Name AS 'Наименование продукции'
+FROM product INNER JOIN sklad ON product.ID_Sklada = sklad.ID_Sklada
+WHERE product.ID_Sklada = 1;";
+
+        public string Select_Product_ComboBox_GP = $@"SELECT product.Name AS 'Наименование продукции'
+FROM product INNER JOIN sklad ON product.ID_Sklada = sklad.ID_Sklada
+WHERE product.ID_Sklada = 2;";
+
+        public string Select_Product_ID = $@"SELECT product.ID_Product AS 'ID Продукции'
+FROM product INNER JOIN sklad ON product.ID_Sklada = sklad.ID_Sklada
+WHERE product.Name = @Value1;";
+
         public string Select_Organizacii = $@"SELECT ID_Organizacii AS 'ID Заказчика', Name AS 'Наименование организации заказчика', Adress AS 'Адрес доставки'
 FROM organizacii;";
 
@@ -60,9 +72,21 @@ LEFT JOIN sostav_zakaza ON zakaz.ID_Zakaza = sostav_zakaza.ID_Zakaza
 WHERE zakaz.Identify = 'Ожидает отгрузки' AND zakaz.ID_Organizacii = @ID
 GROUP BY zakaz.ID_Zakaza;";
 
+        public string Select_Sostav_CUP = $@"SELECT sostav_Zakaza.ID_Punkta, product.Name AS 'Наименование продукта', sostav_zakaza.Kolichestvo AS 'Количество'
+FROM sostav_zakaza INNER JOIN zakaz ON sostav_zakaza.ID_Zakaza = zakaz.ID_Zakaza
+INNER JOIN product ON sostav_zakaza.ID_Product = product.ID_Product
+WHERE product.ID_Sklada = '1' AND sostav_zakaza.ID_Zakaza = @ID;";
+
+        public string Select_Sostav_GP = $@"SELECT sostav_Zakaza.ID_Punkta, product.Name AS 'Наименование продукта', sostav_zakaza.Kolichestvo AS 'Количество'
+FROM sostav_zakaza INNER JOIN zakaz ON sostav_zakaza.ID_Zakaza = zakaz.ID_Zakaza
+INNER JOIN product ON sostav_zakaza.ID_Product = product.ID_Product
+WHERE product.ID_Sklada = '2' AND sostav_zakaza.ID_Zakaza = @ID;";
+
         public string Select_Avtorizaciya = $@"SELECT EXISTS(SELECT * FROM login WHERE login.Login = @Value1 AND login.Parol = @Value2);";
 
         public string Select_User_Form = $@"SELECT login.ID_Organizacii FROM login WHERE login.Login = @Value1 AND login.Parol = @Value2;";
+
+        public string Select_Last_Insert = $@"SELECT LAST_INSERT_ID();";
         
         //Select
 
@@ -77,6 +101,8 @@ GROUP BY zakaz.ID_Zakaza;";
         public string Insert_Organizacii = $@"INSERT INTO organizacii (Name, Adress) VALUES (@Value1, @Value2);";
 
         public string Insert_Zakaz = $@"INSERT INTO zakaz (ID_Organizacii, Date) VALUES (@ID, @Value1);";
+
+        public string Insert_Sostav_Zakaza = $@"INSERT INTO sostav_zakaza (ID_Zakaza, ID_Product, Kolichestvo) VALUES (@ID, @Value1, @Value2);";
 
         //Insert
 
@@ -105,6 +131,8 @@ GROUP BY zakaz.ID_Zakaza;";
         public string Delete_Organizacii = $@"DELETE FROM organizacii WHERE ID_Organizacii = @ID;";
 
         public string Delete_Zakaz = $@"DELETE FROM zakaz WHERE ID_Zakaza = @ID;";
+
+        public string Delete_Sostav_Zakaza = $@"DELETE FROM sostav_zakaza WHERE ID_Punkta = @ID;";
 
         //Delete
     }

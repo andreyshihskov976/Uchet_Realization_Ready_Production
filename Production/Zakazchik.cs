@@ -14,7 +14,7 @@ namespace Production
     {
         MySqlQueries MySqlQueries = null;
         MySqlOperations MySqlOperations = null;
-        string ID = string.Empty;
+        string ID_Org = string.Empty;
         string identify = string.Empty;
 
         public Zakazchik(string ID)
@@ -22,7 +22,7 @@ namespace Production
             InitializeComponent();
             MySqlQueries = new MySqlQueries();
             MySqlOperations = new MySqlOperations(MySqlQueries);
-            this.ID = ID;
+            this.ID_Org = ID;
         }
 
         private void Zakazchik_Load(object sender, EventArgs e)
@@ -48,19 +48,19 @@ namespace Production
 
         private void отгруженныеToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            MySqlOperations.Select_DataGridView(MySqlQueries.Select_Done_Zakaz_2, dataGridView1, ID);
+            MySqlOperations.Select_DataGridView(MySqlQueries.Select_Done_Zakaz_2, dataGridView1, ID_Org);
             identify = "done_zakaz";
         }
 
         private void ожидающиеToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            MySqlOperations.Select_DataGridView(MySqlQueries.Select_Wait_Zakaz_2, dataGridView1, ID);
+            MySqlOperations.Select_DataGridView(MySqlQueries.Select_Wait_Zakaz_2, dataGridView1, ID_Org);
             identify = "wait_zakaz";
         }
 
         private void всеToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            MySqlOperations.Select_DataGridView(MySqlQueries.Select_All_Zakaz_2, dataGridView1,ID);
+            MySqlOperations.Select_DataGridView(MySqlQueries.Select_All_Zakaz_2, dataGridView1,ID_Org);
             identify = "all_zakaz";
         }
 
@@ -98,21 +98,21 @@ namespace Production
         {
             if (identify == "wait_zakaz")
             {
-                Zakaz zakaz = new Zakaz(MySqlQueries, MySqlOperations, ID);
+                Zakaz zakaz = new Zakaz(MySqlQueries, MySqlOperations, ID_Org);
                 zakaz.button6.Visible = false;
                 zakaz.button1.Visible = true;
                 zakaz.AcceptButton = zakaz.button1;
                 zakaz.ShowDialog();
-                MySqlOperations.Select_DataGridView(MySqlQueries.Select_Wait_Zakaz_2, dataGridView1, ID);
+                MySqlOperations.Select_DataGridView(MySqlQueries.Select_Wait_Zakaz_2, dataGridView1, ID_Org);
             }
             else if (identify == "all_zakaz")
             {
-                Zakaz zakaz = new Zakaz(MySqlQueries, MySqlOperations, ID);
+                Zakaz zakaz = new Zakaz(MySqlQueries, MySqlOperations, ID_Org);
                 zakaz.button6.Visible = false;
                 zakaz.button1.Visible = true;
                 zakaz.AcceptButton = zakaz.button1;
                 zakaz.ShowDialog();
-                MySqlOperations.Select_DataGridView(MySqlQueries.Select_All_Zakaz_2, dataGridView1, ID);
+                MySqlOperations.Select_DataGridView(MySqlQueries.Select_All_Zakaz_2, dataGridView1, ID_Org);
             }
         }
 
@@ -122,27 +122,31 @@ namespace Production
             {
                 if (identify == "wait_zakaz")
                 {
-                    Zakaz zakaz = new Zakaz(MySqlQueries, MySqlOperations, dataGridView1.SelectedRows[0].Cells[0].Value.ToString(), ID);
+                    Zakaz zakaz = new Zakaz(MySqlQueries, MySqlOperations, ID_Org, dataGridView1.SelectedRows[0].Cells[0].Value.ToString());
                     zakaz.dateTimePicker1.Value = DateTime.Parse(dataGridView1.SelectedRows[0].Cells[1].Value.ToString());
                     zakaz.button1.Visible = false;
                     zakaz.button6.Visible = true;
                     zakaz.groupBox1.Visible = true;
                     zakaz.groupBox2.Visible = true;
                     zakaz.AcceptButton = zakaz.button6;
+                    MySqlOperations.Select_DataGridView(MySqlQueries.Select_Sostav_CUP, zakaz.dataGridView1, dataGridView1.SelectedRows[0].Cells[0].Value.ToString());
+                    MySqlOperations.Select_DataGridView(MySqlQueries.Select_Sostav_GP, zakaz.dataGridView2, dataGridView1.SelectedRows[0].Cells[0].Value.ToString());
                     zakaz.ShowDialog();
-                    MySqlOperations.Select_DataGridView(MySqlQueries.Select_Wait_Zakaz_2, dataGridView1, ID);
+                    MySqlOperations.Select_DataGridView(MySqlQueries.Select_Wait_Zakaz_2, dataGridView1, ID_Org);
                 }
                 else if (identify == "all_zakaz")
                 {
-                    Zakaz zakaz = new Zakaz(MySqlQueries, MySqlOperations, dataGridView1.SelectedRows[0].Cells[0].Value.ToString(), ID);
+                    Zakaz zakaz = new Zakaz(MySqlQueries, MySqlOperations, ID_Org, dataGridView1.SelectedRows[0].Cells[0].Value.ToString());
                     zakaz.dateTimePicker1.Value = DateTime.Parse(dataGridView1.SelectedRows[0].Cells[1].Value.ToString());
                     zakaz.button1.Visible = false;
                     zakaz.button6.Visible = true;
                     zakaz.groupBox1.Visible = true;
                     zakaz.groupBox2.Visible = true;
                     zakaz.AcceptButton = zakaz.button6;
+                    MySqlOperations.Select_DataGridView(MySqlQueries.Select_Sostav_CUP, zakaz.dataGridView1, dataGridView1.SelectedRows[0].Cells[0].Value.ToString());
+                    MySqlOperations.Select_DataGridView(MySqlQueries.Select_Sostav_GP, zakaz.dataGridView2, dataGridView1.SelectedRows[0].Cells[0].Value.ToString());
                     zakaz.ShowDialog();
-                    MySqlOperations.Select_DataGridView(MySqlQueries.Select_All_Zakaz_2, dataGridView1, ID);
+                    MySqlOperations.Select_DataGridView(MySqlQueries.Select_All_Zakaz_2, dataGridView1, ID_Org);
                 }
             }
         }
@@ -155,21 +159,21 @@ namespace Production
                 {
                     for(int i = 0; i < dataGridView1.SelectedRows.Count; i++)
                         MySqlOperations.Delete(MySqlQueries.Delete_Zakaz, dataGridView1.SelectedRows[i].Cells[0].Value.ToString());
-                    MySqlOperations.Select_DataGridView(MySqlQueries.Select_Wait_Zakaz_2, dataGridView1, ID);
+                    MySqlOperations.Select_DataGridView(MySqlQueries.Select_Wait_Zakaz_2, dataGridView1, ID_Org);
 
                 }
                 else if (identify == "all_zakaz")
                 {
                     for (int i = 0; i < dataGridView1.SelectedRows.Count; i++)
                         MySqlOperations.Delete(MySqlQueries.Delete_Zakaz, dataGridView1.SelectedRows[i].Cells[0].Value.ToString());
-                    MySqlOperations.Select_DataGridView(MySqlQueries.Select_All_Zakaz_2, dataGridView1, ID);
+                    MySqlOperations.Select_DataGridView(MySqlQueries.Select_All_Zakaz_2, dataGridView1, ID_Org);
 
                 }
                 else if (identify == "done_zakaz")
                 {
                     for (int i = 0; i < dataGridView1.SelectedRows.Count; i++)
                         MySqlOperations.Delete(MySqlQueries.Delete_Zakaz, dataGridView1.SelectedRows[i].Cells[0].Value.ToString());
-                    MySqlOperations.Select_DataGridView(MySqlQueries.Select_Done_Zakaz_2, dataGridView1, ID);
+                    MySqlOperations.Select_DataGridView(MySqlQueries.Select_Done_Zakaz_2, dataGridView1, ID_Org);
                 }
             }
         }

@@ -32,14 +32,14 @@
             this.dateTimePicker1 = new System.Windows.Forms.DateTimePicker();
             this.button1 = new System.Windows.Forms.Button();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.dataGridView1 = new System.Windows.Forms.DataGridView();
             this.button3 = new System.Windows.Forms.Button();
             this.button2 = new System.Windows.Forms.Button();
-            this.dataGridView1 = new System.Windows.Forms.DataGridView();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.button4 = new System.Windows.Forms.Button();
             this.button5 = new System.Windows.Forms.Button();
-            this.dataGridView2 = new System.Windows.Forms.DataGridView();
             this.button6 = new System.Windows.Forms.Button();
+            this.dataGridView2 = new System.Windows.Forms.DataGridView();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.groupBox2.SuspendLayout();
@@ -78,10 +78,10 @@
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.dataGridView1);
             this.groupBox1.Controls.Add(this.button3);
             this.groupBox1.Controls.Add(this.button2);
-            this.groupBox1.Controls.Add(this.dataGridView1);
-            this.groupBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
+            this.groupBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
             this.groupBox1.Location = new System.Drawing.Point(4, 32);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Size = new System.Drawing.Size(305, 342);
@@ -89,6 +89,21 @@
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Склад готовой продукции";
             this.groupBox1.Visible = false;
+            // 
+            // dataGridView1
+            // 
+            this.dataGridView1.AllowUserToAddRows = false;
+            this.dataGridView1.AllowUserToDeleteRows = false;
+            this.dataGridView1.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCells;
+            this.dataGridView1.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllCells;
+            this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridView1.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically;
+            this.dataGridView1.Location = new System.Drawing.Point(0, 19);
+            this.dataGridView1.Name = "dataGridView1";
+            this.dataGridView1.RowHeadersVisible = false;
+            this.dataGridView1.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.dataGridView1.Size = new System.Drawing.Size(305, 285);
+            this.dataGridView1.TabIndex = 10;
             // 
             // button3
             // 
@@ -99,6 +114,7 @@
             this.button3.TabIndex = 9;
             this.button3.Text = "Удалить";
             this.button3.UseVisualStyleBackColor = true;
+            this.button3.Click += new System.EventHandler(this.button3_Click);
             // 
             // button2
             // 
@@ -109,21 +125,14 @@
             this.button2.TabIndex = 8;
             this.button2.Text = "Добавить";
             this.button2.UseVisualStyleBackColor = true;
-            // 
-            // dataGridView1
-            // 
-            this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView1.Location = new System.Drawing.Point(0, 25);
-            this.dataGridView1.Name = "dataGridView1";
-            this.dataGridView1.Size = new System.Drawing.Size(305, 279);
-            this.dataGridView1.TabIndex = 7;
+            this.button2.Click += new System.EventHandler(this.button2_Click);
             // 
             // groupBox2
             // 
+            this.groupBox2.Controls.Add(this.dataGridView2);
             this.groupBox2.Controls.Add(this.button4);
             this.groupBox2.Controls.Add(this.button5);
-            this.groupBox2.Controls.Add(this.dataGridView2);
-            this.groupBox2.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
+            this.groupBox2.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
             this.groupBox2.Location = new System.Drawing.Point(315, 32);
             this.groupBox2.Name = "groupBox2";
             this.groupBox2.Size = new System.Drawing.Size(305, 342);
@@ -141,6 +150,7 @@
             this.button4.TabIndex = 9;
             this.button4.Text = "Добавить";
             this.button4.UseVisualStyleBackColor = true;
+            this.button4.Click += new System.EventHandler(this.button4_Click);
             // 
             // button5
             // 
@@ -151,14 +161,7 @@
             this.button5.TabIndex = 8;
             this.button5.Text = "Удалить";
             this.button5.UseVisualStyleBackColor = true;
-            // 
-            // dataGridView2
-            // 
-            this.dataGridView2.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView2.Location = new System.Drawing.Point(0, 25);
-            this.dataGridView2.Name = "dataGridView2";
-            this.dataGridView2.Size = new System.Drawing.Size(305, 279);
-            this.dataGridView2.TabIndex = 7;
+            this.button5.Click += new System.EventHandler(this.button5_Click);
             // 
             // button6
             // 
@@ -170,6 +173,21 @@
             this.button6.Text = "Редактировать";
             this.button6.UseVisualStyleBackColor = true;
             this.button6.Click += new System.EventHandler(this.button6_Click);
+            // 
+            // dataGridView2
+            // 
+            this.dataGridView2.AllowUserToAddRows = false;
+            this.dataGridView2.AllowUserToDeleteRows = false;
+            this.dataGridView2.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCells;
+            this.dataGridView2.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllCells;
+            this.dataGridView2.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridView2.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically;
+            this.dataGridView2.Location = new System.Drawing.Point(0, 19);
+            this.dataGridView2.Name = "dataGridView2";
+            this.dataGridView2.RowHeadersVisible = false;
+            this.dataGridView2.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.dataGridView2.Size = new System.Drawing.Size(305, 285);
+            this.dataGridView2.TabIndex = 11;
             // 
             // Zakaz
             // 
@@ -204,14 +222,14 @@
         private System.Windows.Forms.Label label1;
         public System.Windows.Forms.Button button3;
         public System.Windows.Forms.Button button2;
-        public System.Windows.Forms.DataGridView dataGridView1;
         public System.Windows.Forms.Button button4;
         public System.Windows.Forms.Button button5;
-        public System.Windows.Forms.DataGridView dataGridView2;
         public System.Windows.Forms.DateTimePicker dateTimePicker1;
         public System.Windows.Forms.Button button6;
         public System.Windows.Forms.Button button1;
         public System.Windows.Forms.GroupBox groupBox1;
         public System.Windows.Forms.GroupBox groupBox2;
+        public System.Windows.Forms.DataGridView dataGridView2;
+        public System.Windows.Forms.DataGridView dataGridView1;
     }
 }

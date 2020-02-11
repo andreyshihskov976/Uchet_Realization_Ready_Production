@@ -92,6 +92,12 @@
     <Compile Include="Sklad.Designer.cs">
       <DependentUpon>Sklad.cs</DependentUpon>
     </Compile>
+    <Compile Include="Sostav_Zakaza.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Sostav_Zakaza.Designer.cs">
+      <DependentUpon>Sostav_Zakaza.cs</DependentUpon>
+    </Compile>
     <Compile Include="Zakaz.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -127,6 +133,9 @@
     </Compile>
     <EmbeddedResource Include="Sklad.resx">
       <DependentUpon>Sklad.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Sostav_Zakaza.resx">
+      <DependentUpon>Sostav_Zakaza.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Zakaz.resx">
       <DependentUpon>Zakaz.cs</DependentUpon>
