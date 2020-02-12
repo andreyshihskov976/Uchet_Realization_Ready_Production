@@ -43,6 +43,7 @@
             this.toolStripMenuItem8 = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem9 = new System.Windows.Forms.ToolStripMenuItem();
             this.заявкиНаОтгрузкуToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.оформитьToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.заказыToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.отгруженныеToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.ожидающиеToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -55,11 +56,13 @@
             this.button4 = new System.Windows.Forms.Button();
             this.button1 = new System.Windows.Forms.Button();
             this.button3 = new System.Windows.Forms.Button();
-            this.оформитьToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.saveFileDialog1 = new System.Windows.Forms.SaveFileDialog();
+            this.dataGridView2 = new System.Windows.Forms.DataGridView();
             this.contextMenuStrip1.SuspendLayout();
             this.menuStrip1.SuspendLayout();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView2)).BeginInit();
             this.SuspendLayout();
             // 
             // contextMenuStrip1
@@ -156,7 +159,7 @@
             // toolStripMenuItem7
             // 
             this.toolStripMenuItem7.Name = "toolStripMenuItem7";
-            this.toolStripMenuItem7.Size = new System.Drawing.Size(180, 22);
+            this.toolStripMenuItem7.Size = new System.Drawing.Size(135, 22);
             this.toolStripMenuItem7.Text = "Склады";
             this.toolStripMenuItem7.Visible = false;
             this.toolStripMenuItem7.Click += new System.EventHandler(this.складыToolStripMenuItem_Click);
@@ -181,6 +184,12 @@
             this.заявкиНаОтгрузкуToolStripMenuItem.Size = new System.Drawing.Size(123, 23);
             this.заявкиНаОтгрузкуToolStripMenuItem.Text = "Заявки на отгрузку";
             this.заявкиНаОтгрузкуToolStripMenuItem.Click += new System.EventHandler(this.заявкиНаОтгрузкуToolStripMenuItem_Click);
+            // 
+            // оформитьToolStripMenuItem
+            // 
+            this.оформитьToolStripMenuItem.Name = "оформитьToolStripMenuItem";
+            this.оформитьToolStripMenuItem.Size = new System.Drawing.Size(116, 23);
+            this.оформитьToolStripMenuItem.Text = "Оформить заявку";
             // 
             // заказыToolStripMenuItem
             // 
@@ -227,6 +236,7 @@
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.dataGridView2);
             this.groupBox1.Controls.Add(this.dataGridView1);
             this.groupBox1.Controls.Add(this.button2);
             this.groupBox1.Controls.Add(this.button4);
@@ -275,6 +285,7 @@
             this.button4.TabIndex = 12;
             this.button4.Text = "&Печать";
             this.button4.UseVisualStyleBackColor = true;
+            this.button4.Click += new System.EventHandler(this.button4_Click);
             // 
             // button1
             // 
@@ -298,11 +309,29 @@
             this.button3.UseVisualStyleBackColor = true;
             this.button3.Click += new System.EventHandler(this.button3_Click);
             // 
-            // оформитьToolStripMenuItem
+            // saveFileDialog1
             // 
-            this.оформитьToolStripMenuItem.Name = "оформитьToolStripMenuItem";
-            this.оформитьToolStripMenuItem.Size = new System.Drawing.Size(116, 23);
-            this.оформитьToolStripMenuItem.Text = "Оформить заявку";
+            this.saveFileDialog1.AddExtension = false;
+            this.saveFileDialog1.DefaultExt = "Книга Excel|*.xlsx";
+            this.saveFileDialog1.Filter = "Книга Excel|*.xlsx|Книга Excel 93-2003|*.xls|PDF|*.pdf";
+            this.saveFileDialog1.OverwritePrompt = false;
+            // 
+            // dataGridView2
+            // 
+            this.dataGridView2.AllowUserToAddRows = false;
+            this.dataGridView2.AllowUserToDeleteRows = false;
+            this.dataGridView2.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCells;
+            this.dataGridView2.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllCells;
+            this.dataGridView2.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridView2.ContextMenuStrip = this.contextMenuStrip1;
+            this.dataGridView2.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically;
+            this.dataGridView2.Location = new System.Drawing.Point(0, 0);
+            this.dataGridView2.Name = "dataGridView2";
+            this.dataGridView2.RowHeadersVisible = false;
+            this.dataGridView2.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.dataGridView2.Size = new System.Drawing.Size(0, 0);
+            this.dataGridView2.TabIndex = 13;
+            this.dataGridView2.Visible = false;
             // 
             // Postavschik
             // 
@@ -326,6 +355,7 @@
             this.menuStrip1.PerformLayout();
             this.groupBox1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView2)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -360,6 +390,8 @@
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.Button button3;
         private System.Windows.Forms.ToolStripMenuItem оформитьToolStripMenuItem;
+        private System.Windows.Forms.SaveFileDialog saveFileDialog1;
+        public System.Windows.Forms.DataGridView dataGridView2;
     }
 }
 

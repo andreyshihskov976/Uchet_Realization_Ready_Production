@@ -253,5 +253,22 @@ namespace Production
             else
                 MessageBox.Show("Для оформления заявки необходимо открыть список заказов, ожидающих отгрузки, и выбрать заказ, на основании которого необхдимо оформить заявку.", "Информация", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
+
+        private void button4_Click(object sender, EventArgs e)
+        {
+            if (dataGridView1.SelectedRows.Count <= 1 && dataGridView1.SelectedRows.Count > 0)
+            {
+                if (identify == "wait_zakaz" || identify == "done_zakaz" || identify == "all_zakaz")
+                {
+                    MySqlOperations.Print_Zakaz(MySqlQueries, dataGridView2, saveFileDialog1, dataGridView1.SelectedRows[0].Cells[0].Value.ToString());
+                }
+                else if (identify == "zayavka")
+                {
+                    MySqlOperations.Print_Zayavka(MySqlQueries, dataGridView2, saveFileDialog1, dataGridView1.SelectedRows[0].Cells[0].Value.ToString());
+                }
+                else
+                    MessageBox.Show("Печать заказов из данной таблицы невозможно.", "Печать", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+        }
     }
 }

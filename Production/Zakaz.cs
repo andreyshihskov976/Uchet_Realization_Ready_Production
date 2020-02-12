@@ -29,9 +29,6 @@ namespace Production
             MySqlOperations = mySqlOperations;
             ID_Org = iD_Org;
             ID_Zakaza = iD_Zakaza;
-            dateTimePicker1.Value = DateTime.Now;
-            dateTimePicker1.MinDate = DateTime.Now;
-            dateTimePicker1.MaxDate = DateTime.Now;
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -79,6 +76,11 @@ namespace Production
         {
             string date = dateTimePicker1.Value.Year.ToString() + '-' + dateTimePicker1.Value.Month.ToString() + '-' + dateTimePicker1.Value.Day.ToString();
             MySqlOperations.Insert_Update(MySqlQueries.Update_Zakaz, ID_Zakaza, ID_Org, date);
+        }
+
+        private void Zakaz_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            MySqlOperations.Insert_Update(MySqlQueries.Update_Summa_Zakaza, ID_Zakaza);
         }
     }
 }

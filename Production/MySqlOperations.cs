@@ -225,5 +225,136 @@ namespace Production
             }
             else dataGridView.ClearSelection();
         }
+
+        public void Print_Zakaz(MySqlQueries mySqlQueries, DataGridView dataGridView, SaveFileDialog saveFileDialog, string ID = null)
+        {
+            ExcelApplication ExcelApp = null;
+            Workbooks workbooks = null;
+            Workbook workbook = null;
+            Worksheet worksheet = null;
+            string output = null;
+            string fileName = null;
+            Select_Text(mySqlQueries.Select_Zakaz_PrintShapka, ref output, ID);
+            saveFileDialog.Title = "Сохранить заказ как";
+            saveFileDialog.FileName = "Заказ № " + output.Split(';')[0] + " (" + output.Split(';')[1] + ')';
+            saveFileDialog.InitialDirectory = Application.StartupPath + "\\Отчеты\\";
+            if (saveFileDialog.ShowDialog() == DialogResult.OK)
+            {
+                fileName = saveFileDialog.FileName;
+                try
+                {
+                    ExcelApp = new ExcelApplication();
+                    workbooks = ExcelApp.Workbooks;
+                    workbook = workbooks.Open(Application.StartupPath + "\\Blanks\\Zakaz.xlsx");
+                    worksheet = workbook.Worksheets.get_Item(1) as Worksheet;
+                    ExcelApp.Cells[1, 1] = "Заказ поставщику №" + output.Split(';')[0] + " от " + output.Split(';')[1];
+                    //ExcelApp.Cells[1, 4] = output.Split(';')[1];
+                    ExcelApp.Cells[5, 2] = output.Split(';')[2];
+                    //ExcelApp.Cells[3, 5] = output.Split(';')[3];
+                    //ExcelApp.Cells[4, 5] = output.Split(';')[4];
+                    Select_DataGridView(mySqlQueries.Select_Zakaz_PrintTable, dataGridView, ID);
+                    int ExRow = 8;
+                    int ExCol = 2;
+                    int a = 0;
+                    for (int i = 0; i < dataGridView.Rows.Count; i++)
+                    {
+                        a = ExCol - 1;
+                        ExcelApp.Cells[ExRow, a] = i+1;
+                        for (int j = 0; j < dataGridView.Columns.Count; j++)
+                        {
+                            ExcelApp.Cells[ExRow, ExCol] = dataGridView.Rows[i].Cells[j].Value.ToString();
+                            ExCol++;
+                        }
+                        ExCol = 2;
+                        ExRow++;
+                    }
+                    a = ExRow + 1;
+                    int b = a + 1;
+                    ExcelApp.Cells[a, 5] = "Итого: " + output.Split(';')[3];
+                    ExcelApp.Cells[b, 5] = "В том числе НДС: "+output.Split(';')[4];
+                    var cells = worksheet.get_Range("A7 ", "F" + (ExRow-1).ToString());
+                    cells.Borders[XlBordersIndex.xlInsideVertical].LineStyle = XlLineStyle.xlContinuous;
+                    cells.Borders[XlBordersIndex.xlInsideHorizontal].LineStyle = XlLineStyle.xlContinuous;
+                    cells.Borders[XlBordersIndex.xlEdgeTop].LineStyle = XlLineStyle.xlContinuous;
+                    cells.Borders[XlBordersIndex.xlEdgeRight].LineStyle = XlLineStyle.xlContinuous;
+                    cells.Borders[XlBordersIndex.xlEdgeLeft].LineStyle = XlLineStyle.xlContinuous;
+                    cells.Borders[XlBordersIndex.xlEdgeBottom].LineStyle = XlLineStyle.xlContinuous;
+                    workbook.SaveAs(fileName);
+                    ExcelApp.Visible = true;
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message, "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+                finally
+                {
+                    Marshal.ReleaseComObject(workbook);
+                    Marshal.ReleaseComObject(workbooks);
+                    Marshal.ReleaseComObject(ExcelApp);
+                }
+            }
+        }
+
+        public void Print_Zayavka(MySqlQueries mySqlQueries, DataGridView dataGridView, SaveFileDialog saveFileDialog, string ID = null)
+        {
+            ExcelApplication ExcelApp = null;
+            Workbooks workbooks = null;
+            Workbook workbook = null;
+            Worksheet worksheet = null;
+            string output = null;
+            string fileName = null;
+            Select_Text(mySqlQueries.Select_Zayavka_PrintShapka, ref output, ID);
+            saveFileDialog.Title = "Сохранить заявку как";
+            saveFileDialog.FileName = "Заявка на отгрузку № " + output.Split(';')[0] + " (" + output.Split(';')[1] + ')';
+            saveFileDialog.InitialDirectory = Application.StartupPath + "\\Отчеты\\";
+            if (saveFileDialog.ShowDialog() == DialogResult.OK)
+            {
+                fileName = saveFileDialog.FileName;
+                try
+                {
+                    ExcelApp = new ExcelApplication();
+                    workbooks = ExcelApp.Workbooks;
+                    workbook = workbooks.Open(Application.StartupPath + "\\Blanks\\Zayavka.xlsx");
+                    worksheet = workbook.Worksheets.get_Item(1) as Worksheet;
+                    ExcelApp.Cells[1, 1] = "ЗАЯВКА №" + output.Split(';')[0] + " от "+ output.Split(';')[1];
+                    ExcelApp.Cells[4, 2] = output.Split(';')[2];
+                    ExcelApp.Cells[5, 2] = output.Split(';')[3];
+                    ExcelApp.Cells[6, 2] = output.Split(';')[4];
+                    ExcelApp.Cells[7, 2] = output.Split(';')[5];
+                    Select_DataGridView(mySqlQueries.Select_Zayavka_PrintTable, dataGridView, ID);
+                    int ExRow = 12;
+                    int ExCol = 1;
+                    for (int i = 0; i < dataGridView.Rows.Count; i++)
+                    {
+                        for (int j = 0; j < dataGridView.Columns.Count; j++)
+                        {
+                            ExcelApp.Cells[ExRow, ExCol] = dataGridView.Rows[i].Cells[j].Value.ToString();
+                            ExCol++;
+                        }
+                        ExCol = 1;
+                        ExRow++;
+                    }
+                    var cells = worksheet.get_Range("A12 ", "E" + (ExRow - 1).ToString());
+                    cells.Borders[XlBordersIndex.xlInsideVertical].LineStyle = XlLineStyle.xlContinuous;
+                    cells.Borders[XlBordersIndex.xlInsideHorizontal].LineStyle = XlLineStyle.xlContinuous;
+                    cells.Borders[XlBordersIndex.xlEdgeTop].LineStyle = XlLineStyle.xlContinuous;
+                    cells.Borders[XlBordersIndex.xlEdgeRight].LineStyle = XlLineStyle.xlContinuous;
+                    cells.Borders[XlBordersIndex.xlEdgeLeft].LineStyle = XlLineStyle.xlContinuous;
+                    cells.Borders[XlBordersIndex.xlEdgeBottom].LineStyle = XlLineStyle.xlContinuous;
+                    workbook.SaveAs(fileName);
+                    ExcelApp.Visible = true;
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message, "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+                finally
+                {
+                    Marshal.ReleaseComObject(workbook);
+                    Marshal.ReleaseComObject(workbooks);
+                    Marshal.ReleaseComObject(ExcelApp);
+                }
+            }
+        }
     }
 }

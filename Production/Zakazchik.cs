@@ -102,6 +102,9 @@ namespace Production
                 zakaz.button6.Visible = false;
                 zakaz.button1.Visible = true;
                 zakaz.AcceptButton = zakaz.button1;
+                zakaz.dateTimePicker1.Value = DateTime.Parse(DateTime.Now.ToShortDateString());
+                zakaz.dateTimePicker1.MinDate = DateTime.Parse(DateTime.Now.ToShortDateString());
+                zakaz.dateTimePicker1.MaxDate = DateTime.Parse(DateTime.Now.ToShortDateString());
                 zakaz.ShowDialog();
                 MySqlOperations.Select_DataGridView(MySqlQueries.Select_Wait_Zakaz_2, dataGridView1, ID_Org);
             }
@@ -111,6 +114,9 @@ namespace Production
                 zakaz.button6.Visible = false;
                 zakaz.button1.Visible = true;
                 zakaz.AcceptButton = zakaz.button1;
+                zakaz.dateTimePicker1.Value = DateTime.Parse(DateTime.Now.ToShortDateString());
+                zakaz.dateTimePicker1.MinDate = DateTime.Parse(DateTime.Now.ToShortDateString());
+                zakaz.dateTimePicker1.MaxDate = DateTime.Parse(DateTime.Now.ToShortDateString());
                 zakaz.ShowDialog();
                 MySqlOperations.Select_DataGridView(MySqlQueries.Select_All_Zakaz_2, dataGridView1, ID_Org);
             }
@@ -120,12 +126,14 @@ namespace Production
 
         private void Update_String()
         {
-            if (dataGridView1.SelectedRows.Count <= 1)
+            if (dataGridView1.SelectedRows.Count <= 1 && dataGridView1.SelectedRows.Count > 0)
             {
                 if (identify == "wait_zakaz")
                 {
                     Zakaz zakaz = new Zakaz(MySqlQueries, MySqlOperations, ID_Org, dataGridView1.SelectedRows[0].Cells[0].Value.ToString());
                     zakaz.dateTimePicker1.Value = DateTime.Parse(dataGridView1.SelectedRows[0].Cells[1].Value.ToString());
+                    zakaz.dateTimePicker1.MinDate = DateTime.Parse(dataGridView1.SelectedRows[0].Cells[1].Value.ToString());
+                    zakaz.dateTimePicker1.MaxDate = DateTime.Parse(dataGridView1.SelectedRows[0].Cells[1].Value.ToString());
                     zakaz.button1.Visible = false;
                     zakaz.button6.Visible = true;
                     zakaz.groupBox1.Visible = true;
@@ -138,10 +146,12 @@ namespace Production
                 }
                 else if (identify == "all_zakaz")
                 {
-                    if (dataGridView1.SelectedRows[0].Cells[3].Value.ToString() != "Отгружен")
+                    if (dataGridView1.SelectedRows[0].Cells[4].Value.ToString() != "Отгружен")
                     {
                         Zakaz zakaz = new Zakaz(MySqlQueries, MySqlOperations, ID_Org, dataGridView1.SelectedRows[0].Cells[0].Value.ToString());
                         zakaz.dateTimePicker1.Value = DateTime.Parse(dataGridView1.SelectedRows[0].Cells[1].Value.ToString());
+                        zakaz.dateTimePicker1.MinDate = DateTime.Parse(dataGridView1.SelectedRows[0].Cells[1].Value.ToString());
+                        zakaz.dateTimePicker1.MaxDate = DateTime.Parse(dataGridView1.SelectedRows[0].Cells[1].Value.ToString());
                         zakaz.button1.Visible = false;
                         zakaz.button6.Visible = true;
                         zakaz.groupBox1.Visible = true;
@@ -185,6 +195,17 @@ namespace Production
                     MySqlOperations.Select_DataGridView(MySqlQueries.Select_Done_Zakaz_2, dataGridView1, ID_Org);
                 }
             }
+        }
+
+        private void button4_Click(object sender, EventArgs e)
+        {
+            if (dataGridView1.SelectedRows.Count <= 1 && dataGridView1.SelectedRows.Count > 0)
+                if (identify == "wait_zakaz" || identify == "done_zakaz" || identify == "all_zakaz")
+                {
+                    MySqlOperations.Print_Zakaz(MySqlQueries, dataGridView2, saveFileDialog1, dataGridView1.SelectedRows[0].Cells[0].Value.ToString());
+                }
+                else
+                    MessageBox.Show("Печать заказов из данной таблицы невозможно.", "Печать", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
     }
 }

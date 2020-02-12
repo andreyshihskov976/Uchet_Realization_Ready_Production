@@ -32,9 +32,9 @@ namespace Production
 
         private void button1_Click(object sender, EventArgs e)
         {
-            if (textBox1.Text != "" && comboBox1.Text != "" && comboBox2.Text != "")
+            if (textBox1.Text != "" && comboBox1.Text != "" && comboBox2.Text != "" && textBox2.Text != "")
             {
-                MySqlOperations.Insert_Update(MySqlQueries.Insert_Product, null, MySqlOperations.Select_ID_From_ComboBox(MySqlQueries.Select_Sklad_ID, comboBox1.Text), textBox1.Text, comboBox2.Text);
+                MySqlOperations.Insert_Update(MySqlQueries.Insert_Product, null, MySqlOperations.Select_ID_From_ComboBox(MySqlQueries.Select_Sklad_ID, comboBox1.Text), textBox1.Text, comboBox2.Text, textBox2.Text.Replace(',','.'));
                 this.Close();
             }
             else
@@ -48,9 +48,9 @@ namespace Production
 
         private void button3_Click(object sender, EventArgs e)
         {
-            if (textBox1.Text != "" && comboBox1.Text != "" && comboBox2.Text != "")
+            if (textBox1.Text != "" && comboBox1.Text != "" && comboBox2.Text != "" && textBox2.Text != "")
             {
-                MySqlOperations.Insert_Update(MySqlQueries.Update_Product, ID, MySqlOperations.Select_ID_From_ComboBox(MySqlQueries.Select_Sklad_ID, comboBox1.Text), textBox1.Text, comboBox2.Text);
+                MySqlOperations.Insert_Update(MySqlQueries.Update_Product, ID, MySqlOperations.Select_ID_From_ComboBox(MySqlQueries.Select_Sklad_ID, comboBox1.Text), textBox1.Text, comboBox2.Text, textBox2.Text.Replace(',', '.'));
                 this.Close();
             }
             else

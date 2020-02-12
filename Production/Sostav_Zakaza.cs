@@ -34,7 +34,7 @@ namespace Production
             {
                 string output = string.Empty;
                 MySqlOperations.Select_Text(MySqlQueries.Select_Product_ID, ref output, null, comboBox1.Text);
-                MySqlOperations.Insert_Update(MySqlQueries.Insert_Sostav_Zakaza, ID, output, numericUpDown1.Value.ToString());
+                MySqlOperations.Insert_Update(MySqlQueries.Insert_Sostav_Zakaza, ID, output, numericUpDown1.Value.ToString().Replace(',','.').ToString());
                 this.Close();
             }
             else

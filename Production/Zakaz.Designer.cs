@@ -82,12 +82,12 @@
             this.groupBox1.Controls.Add(this.button3);
             this.groupBox1.Controls.Add(this.button2);
             this.groupBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
-            this.groupBox1.Location = new System.Drawing.Point(4, 32);
+            this.groupBox1.Location = new System.Drawing.Point(315, 32);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Size = new System.Drawing.Size(305, 342);
             this.groupBox1.TabIndex = 9;
             this.groupBox1.TabStop = false;
-            this.groupBox1.Text = "Склад готовой продукции";
+            this.groupBox1.Text = "Склад ЦУП";
             this.groupBox1.Visible = false;
             // 
             // dataGridView1
@@ -133,12 +133,12 @@
             this.groupBox2.Controls.Add(this.button4);
             this.groupBox2.Controls.Add(this.button5);
             this.groupBox2.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
-            this.groupBox2.Location = new System.Drawing.Point(315, 32);
+            this.groupBox2.Location = new System.Drawing.Point(4, 32);
             this.groupBox2.Name = "groupBox2";
             this.groupBox2.Size = new System.Drawing.Size(305, 342);
             this.groupBox2.TabIndex = 10;
             this.groupBox2.TabStop = false;
-            this.groupBox2.Text = "Склад ЦУП";
+            this.groupBox2.Text = "Склад готовой продукции";
             this.groupBox2.Visible = false;
             // 
             // dataGridView2
@@ -208,6 +208,7 @@
             this.Name = "Zakaz";
             this.ShowIcon = false;
             this.Text = "Заказ";
+            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.Zakaz_FormClosed);
             this.groupBox1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
             this.groupBox2.ResumeLayout(false);
